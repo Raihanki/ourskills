@@ -1,3 +1,4 @@
+import { usePostHog } from "@posthog/react";
 import { Link } from "@tanstack/react-router";
 import {
 	ArrowBigUp,
@@ -19,6 +20,7 @@ export default function SkillCard({
 	title,
 }: SkillRecord) {
 	const [copy, setCopy] = useState(false);
+	const posthog = usePostHog();
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(installCommand);
@@ -26,6 +28,11 @@ export default function SkillCard({
 		setTimeout(() => {
 			setCopy(false);
 		}, 2000);
+		posthog.capture("install_command_copied", {
+			skill_title: title,
+			skill_category: category,
+			install_command: installCommand,
+		});
 	};
 
 	return (
@@ -35,6 +42,12 @@ export default function SkillCard({
 				tabIndex={-1}
 				aria-label={`open ${title}`}
 				className="overlay"
+				onClick={() =>
+					posthog.capture("skill_card_opened", {
+						skill_title: title,
+						skill_category: category,
+					})
+				}
 			/>
 			<div className="chrome">
 				<div className="chrome-bar">
