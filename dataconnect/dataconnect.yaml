@@ -1,0 +1,13 @@
+specVersion: "v1"
+serviceId: "ourskills-f4915-service"
+location: "asia-southeast2"
+schemas:
+  - source: "./schema"
+    datasource:
+      postgresql:
+        database: "ourskills-f4915-database"
+        cloudSql:
+          instanceId: "ourskills-f4915-instance"
+          # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
+          # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
+connectorDirs: ["./connectors"]

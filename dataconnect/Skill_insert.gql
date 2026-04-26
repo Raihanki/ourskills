@@ -1,0 +1,7 @@
+# This is a file for you to write an un-named mutation. 
+# Only one un-named mutation is allowed per file.
+mutation {
+  skill_insert(
+    data: {id: "11111111222233334444555555555558", authorClerkId: "user_3CsyFT8E0Mz8u58qu0nkOV2aMFt", createdAt: "2026-04-26T13:57:19.774Z", description: "Building RESTful APIs using Go and net/http.", installCommand: "go get github.com/gin-gonic/gin", promptConfig: "you are a senior golang developer", tags: ["golang", "api", "backend"], title: "Go REST API", usageExample: "install the best golang framework"}
+  )
+}

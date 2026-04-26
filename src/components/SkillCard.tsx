@@ -1,3 +1,4 @@
+import type { GetSkillsData } from "#/dataconnect-generated";
 import { usePostHog } from "@posthog/react";
 import { Link } from "@tanstack/react-router";
 import {
@@ -10,17 +11,20 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
+type SkillCardProps = GetSkillsData["skills"][number];
+
 export default function SkillCard({
-	authorEmail,
-	category,
 	createdAt,
 	description,
 	installCommand,
 	tags,
 	title,
-}: SkillRecord) {
+	author,
+}: SkillCardProps) {
 	const [copy, setCopy] = useState(false);
 	const posthog = usePostHog();
+
+	const category = tags[0] ?? "General";
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(installCommand);
@@ -63,9 +67,13 @@ export default function SkillCard({
 			<div className="body">
 				<div className="meta">
 					<div className="author">
-						<img src="/logo512.png" alt="author avatar" className="avatar" />
+						<img
+							src={author.imageUrl || "/logo512.png"}
+							alt={`${author.username} avatar`}
+							className="avatar"
+						/>
 						<div className="author-copy">
-							<p>Raihanhori</p>
+							<p>{author.username}</p>
 							<p>
 								{createdAt
 									? new Date(createdAt as string).toLocaleDateString()
@@ -109,7 +117,7 @@ export default function SkillCard({
 
 						<div className="comments">
 							<MessageSquare size={14} />
-							<span>{authorEmail ? 1 : 0}</span>
+							<span>{author.email ? 1 : 0}</span>
 						</div>
 					</div>
 
